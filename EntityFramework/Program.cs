@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
+
 namespace EntityFramework
 {
     class Program
@@ -16,6 +18,14 @@ namespace EntityFramework
             FetchPersonUsingLinqSql();
 
             DbContextOperations();
+
+            EagerLoading();
+            EagerLoadingMultipleLevels();
+            ExplicitLoading();
+            QueryCountWithoutLoading();
+
+            OperationsOnEntitiesAsync();
+            ConcurrenyControl();
         }
 
         static void FetchPersonUsingLinq2Entities()
@@ -72,6 +82,99 @@ namespace EntityFramework
 
                 Database database = ctx.Database; //Creates a Database instance that allows for creation/deletion/modification of the underlying database.
                 DbContextConfiguration config = ctx.Configuration; //Provides access to configuration options for the context.
+            }
+        }
+
+        static void EagerLoading()
+        {
+            using (var ctx = new SchoolEntities())
+            {
+                var p = ctx.Person.Include("Course").Where(s => s.PersonID == 1).FirstOrDefault(); //Eagerly loading loads related entities even if lazy loading is disabled. 
+            }
+        }
+        static void EagerLoadingMultipleLevels()
+        {
+            using (var ctx = new SchoolEntities())
+            {
+                var p = ctx.Person.Include("Course.StudentGrade").ToList(); //Loads all Person, all courses for each person and Student grade for each course.
+            }
+        }
+        static void ExplicitLoading()
+        {
+            using (var ctx = new SchoolEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false; //Disable loading of related entities by default.
+                var p = ctx.Person.Find(1);
+                ctx.Entry(p).Collection(x => x.Course).Load(); //Loads related courses for the person.
+            }
+        }
+
+        static void QueryCountWithoutLoading()
+        {
+            using (var ctx = new SchoolEntities())
+            {
+                ctx.Configuration.LazyLoadingEnabled = false; //Disable loading of related entities by default.
+                var p = ctx.Person.Find(1);
+                var count = ctx.Entry(p).Collection(x => x.Course).Query().Count(); //returns total count of Course for person
+            }
+        }
+        static async void OperationsOnEntitiesAsync()
+        {
+            using (var ctx = new SchoolEntities())
+            {
+                ctx.Person.AddRange(new List<Person> { });
+                await ctx.SaveChangesAsync();
+                await ctx.Person.FirstOrDefaultAsync();
+            }
+        }
+        static void ConcurrenyControl()
+        {
+            Person personOne = null;
+            Person personTwo = null;
+
+            using (var context = new SchoolEntities())
+                personOne = context.Person.Where(s => s.PersonID == 1).Single();
+
+            using (var context = new SchoolEntities())
+                personTwo = context.Person.Where(s => s.PersonID == 1).Single();
+
+            personOne.FirstName = "Rama";
+            personTwo.FirstName = "Krishna";
+
+            using (var context = new SchoolEntities()) //saves personOne to db
+            {
+                try
+                {
+                    context.Entry(personOne).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    Console.WriteLine("User1: Optimistic Concurrency exception occurred");
+                }
+            }
+
+            using (var context = new SchoolEntities()) //saves personTwo to db, throws error.
+            {
+                try
+                {
+                    context.Entry(personTwo).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var data = ex.Entries.Single();
+                    data.OriginalValues.SetValues(data.GetDatabaseValues()); //Updates original values with database values. Now when we do save, edited values will be written to db
+                    context.SaveChanges();
+                    Console.WriteLine("User2: Optimistic Concurrency exception occurred");
+                }
+            }
+        }
+        static void StoredProcedure()
+        {
+            using(var ctx = new SchoolEntities())
+            {
+                ctx.DeletePerson(1); //DeletePerson is a procedure
             }
         }
     }

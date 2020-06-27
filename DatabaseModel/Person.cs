@@ -27,6 +27,7 @@ namespace DatabaseModel
         public Nullable<System.DateTime> HireDate { get; set; }
         public Nullable<System.DateTime> EnrollmentDate { get; set; }
         public string Discriminator { get; set; }
+        public byte[] RowVersion { get; set; }
     
         public virtual OfficeAssignment OfficeAssignment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

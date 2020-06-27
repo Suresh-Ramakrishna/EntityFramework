@@ -49,7 +49,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pe
 			[FirstName] [nvarchar](50) NOT NULL,
 			[HireDate] [datetime] NULL,
 			[EnrollmentDate] [datetime] NULL,
-			[Discriminator] [nvarchar](50) NOT NULL
+			[Discriminator] [nvarchar](50) NOT NULL,
+			[RowVersion] [timestamp] NOT NULL,
 		)
 	END
 GO
