@@ -2,7 +2,7 @@
 
 
 * Create a new Project (Optional, we can add the ef model in any of the existing project. To keep data model seperated from our projects, we are creating a new project)
-*Right Click on a project ->Add->New Item-> In Data Tab, select ADO.NET Entity Data Model
+* Right Click on a project ->Add->New Item-> In Data Tab, select ADO.NET Entity Data Model
 * Give a name for the Data Model, In our case, we are naming "SchoolModel"
 * Click on Add,
 * Select EF Designer from Database and click on Next
