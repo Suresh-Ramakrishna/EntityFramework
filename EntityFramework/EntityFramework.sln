@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1169
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework", "EntityFramework.csproj", "{EDB05EE0-7D1A-41F4-BE10-2BAF21215D00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseModel", "..\DatabaseModel\DatabaseModel.csproj", "{01502354-A4C5-4B4C-B80E-97260AF971C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ado.Net", "..\Ado.Net\Ado.Net.csproj", "{36213C50-66ED-4F83-8201-5B17DBFF6CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{01502354-A4C5-4B4C-B80E-97260AF971C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01502354-A4C5-4B4C-B80E-97260AF971C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01502354-A4C5-4B4C-B80E-97260AF971C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36213C50-66ED-4F83-8201-5B17DBFF6CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36213C50-66ED-4F83-8201-5B17DBFF6CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36213C50-66ED-4F83-8201-5B17DBFF6CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36213C50-66ED-4F83-8201-5B17DBFF6CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
