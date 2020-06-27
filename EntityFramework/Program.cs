@@ -1,5 +1,4 @@
 ﻿using DatabaseModel;
-using System.Linq;
 namespace EntityFramework
 {
     class Program
