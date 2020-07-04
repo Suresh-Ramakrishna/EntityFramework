@@ -1,5 +1,4 @@
 ## Configuring Entity Framework
-#
 * Create a New Project
 * Right Click on a Project -> Add -> New Item -> In Data Tab, Select ADO.NET Entity Data Model
 * Give a Name for the Data Model, In our case, we are naming "SchoolModel". Click on Add
