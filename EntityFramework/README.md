@@ -1,4 +1,4 @@
-﻿<b>Configuring Entity Framework</b>
+## Configuring Entity Framework
 #
 * Create a New Project
 * Right Click on a Project -> Add -> New Item -> In Data Tab, Select ADO.NET Entity Data Model
